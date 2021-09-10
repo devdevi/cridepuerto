@@ -67,4 +67,4 @@ Borrar la migracion
 """
 
 
-# COmo correr un shell de python
+# Como correr un shell de python
