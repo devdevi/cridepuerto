@@ -26,7 +26,7 @@ class CircleViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Assing circle admin"""
-        circle = serializers.save()
+        circle = serializer.save()
         user = self.request.user
         profile = user.profile
         Membership.objects.create(
