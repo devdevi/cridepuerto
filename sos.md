@@ -68,3 +68,4 @@ Borrar la migracion
 
 
 # Como correr un shell de python
+docker-compose run --rm django python  manage.py shell_plus
