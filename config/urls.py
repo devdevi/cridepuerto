@@ -5,6 +5,7 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
 
+
 urlpatterns = [
     # Django Admin
     path(settings.ADMIN_URL, admin.site.urls),

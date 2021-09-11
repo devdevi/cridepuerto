@@ -45,11 +45,11 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken'
 ]
 LOCAL_APPS = [
     'cride.users.apps.UsersAppConfig',
-    'cride.circles.apps.CirclesAppConfig',
+    'cride.circles.apps.CirclesAppConfig'
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
