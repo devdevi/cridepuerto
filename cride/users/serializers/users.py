@@ -106,7 +106,7 @@ class UserSignUpSerializer(serializers.Serializer):
             'type': 'email_confirmation'
         }
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
-        return token.decode()
+        return token
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -116,7 +116,7 @@ class UserLoginSerializer(serializers.Serializer):
     """
 
     email = serializers.EmailField()
-    password = serializers.CharField(min_length=8, max_length=64)
+    password = serializers.CharField(min_length=4, max_length=64)
 
     def validate(self, data):
         """Check credentials."""

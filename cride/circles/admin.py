@@ -18,10 +18,6 @@ class CircleAdmin(admin.ModelAdmin):
         'is_limited',
         'members_limit'
     )
-<<<<<<< HEAD
-=======
-
->>>>>>> 6/Typo-models
     search_fields = ('slug_name', 'name')
     list_filter = (
         'is_public',
