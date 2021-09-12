@@ -17,9 +17,7 @@ from cride.permissions import IsCircleAdmin
 class CircleViewSet(viewsets.ModelViewSet):
     """Circle view set."""
 
-
-
-
+    lookup_field = 'slug_name'
     serializer_class = CircleModelSerializer
     permission_classes = (IsAuthenticated,)
 
