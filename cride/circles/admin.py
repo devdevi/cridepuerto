@@ -1,7 +1,6 @@
-""" Circles Admin """
+"""Circles admin."""
 
 # Django
-
 from django.contrib import admin
 
 # Model
@@ -19,7 +18,6 @@ class CircleAdmin(admin.ModelAdmin):
         'is_limited',
         'members_limit'
     )
-
     search_fields = ('slug_name', 'name')
     list_filter = (
         'is_public',
