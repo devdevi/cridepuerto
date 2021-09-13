@@ -1,6 +1,7 @@
 """Users serializers."""
 
 # Django
+from cride.users.serializers.profile import ProfileModelSerializer
 from django.conf import settings
 from django.contrib.auth import password_validation, authenticate
 from django.core.mail import EmailMultiAlternatives
@@ -24,6 +25,8 @@ from datetime import timedelta
 class UserModelSerializer(serializers.ModelSerializer):
     """User model serializer."""
 
+    profile = ProfileModelSerializer(read_only=True)
+
     class Meta:
         """Meta class."""
 
@@ -33,8 +36,12 @@ class UserModelSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
-            'phone_number'
+            'phone_number',
+            'profile'
         )
+        read_only_fields = ('profile',)
+
+        depth = 1
 
 
 class UserSignUpSerializer(serializers.Serializer):

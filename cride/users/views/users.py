@@ -1,6 +1,8 @@
 """Users views."""
 
 # Django REST Framework
+from cride.users.serializers.profile import ProfileModelSerializer
+from cride.circles import serializers
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -27,6 +29,7 @@ from cride.users.serializers import (
 
 class UserViewSet(
         mixins.RetrieveModelMixin,
+        mixins.UpdateModelMixin,
         viewsets.GenericViewSet):
     """User view set
     Handle login account verification
@@ -36,9 +39,9 @@ class UserViewSet(
     lookup_field = 'username'
 
     def get_permission(self):
-        if self.action in ['login', 'verify', 'singup']:
+        if self.action in ['login', 'verify', 'signup']:
             permissions = [AllowAny]
-        elif self.actions == 'retrive':
+        elif self.actions == ['retrive', 'update']:
             permissions = [IsAuthenticated, IsAccountOwner]
 
         else:
@@ -75,6 +78,23 @@ class UserViewSet(
         serializer.save()
         data = {'message': 'Congratulation, now go share some rides!'}
         return Response(data, status=status.HTTP_200_OK)
+
+
+    @action(detail=True, methods=['patch', 'put'])
+    def profile(self, request, *args, **kwargs):
+        user = self.get_object()
+        profile = user.profile
+        partial = request.method == 'PATCH'
+        serializer = ProfileModelSerializer(
+            data= request.data,
+            partial = partial
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = UserModelSerializer(user).data
+        return Response(data)
+
+
 
     def retrieve(self, request, *args, **kwargs):
         """Add extra data to the response"""
