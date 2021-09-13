@@ -1,6 +1,7 @@
 """Users serializers."""
 
 # Django
+from cride.users.serializers.profile import ProfileModelSerializer
 from django.conf import settings
 from django.contrib.auth import password_validation, authenticate
 from django.core.mail import EmailMultiAlternatives
@@ -41,6 +42,9 @@ class UserModelSerializer(serializers.ModelSerializer):
             'phone_number',
             'profile'
         )
+        read_only_fields = ('profile',)
+
+        depth = 1
 
 
 class UserSignUpSerializer(serializers.Serializer):
@@ -112,7 +116,7 @@ class UserSignUpSerializer(serializers.Serializer):
             'type': 'email_confirmation'
         }
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
-        return token.decode()
+        return token
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -122,7 +126,7 @@ class UserLoginSerializer(serializers.Serializer):
     """
 
     email = serializers.EmailField()
-    password = serializers.CharField(min_length=8, max_length=64)
+    password = serializers.CharField(min_length=4, max_length=64)
 
     def validate(self, data):
         """Check credentials."""

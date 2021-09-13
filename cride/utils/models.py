@@ -27,8 +27,17 @@ class CRideModel(models.Model):
 
     class Meta:
         """Meta option."""
+        # Abstract esta no es una tabla de la base de datos
 
         abstract = True
 
         get_latest_by = 'created'
         ordering = ['-created', '-modified']
+
+
+
+# class Student(CRideModel):
+#     name =  models.CharField()
+
+#     class Meta(CRideModel.Meta):
+#         db_table = ""

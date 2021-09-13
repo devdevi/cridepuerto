@@ -1,17 +1,15 @@
 """Circle views."""
 
 # Django REST Framework
-from rest_framework import mixins, viewsets
-
-# Permissions
+from rest_framework import viewsets, mixins
 from rest_framework.permissions import IsAuthenticated
-from cride.circles.permissions.circles import IsCircleAdmin
-
+from rest_framework.exceptions import MethodNotAllowed
 # Serializers
 from cride.circles.serializers import CircleModelSerializer
 
 # Models
 from cride.circles.models import Circle, Membership
+from cride.permissions import IsCircleAdmin
 
 
 class CircleViewSet(mixins.CreateModelMixin,
@@ -21,25 +19,28 @@ class CircleViewSet(mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     """Circle view set."""
 
-    serializer_class = CircleModelSerializer
     lookup_field = 'slug_name'
+    serializer_class = CircleModelSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        """Restrict list to public-only."""
+        """Restrict list to public.only"""
+
         queryset = Circle.objects.all()
         if self.action == 'list':
             return queryset.filter(is_public=True)
         return queryset
 
-    def get_permissions(self):
-        """Assign permissions based on action."""
-        permissions = [IsAuthenticated]
-        if self.action in ['update', 'partial_update']:
+    def get_permission(self):
+        """Assing permission based on actions"""
+        permissions =[IsAuthenticated]
+        if self.action == ['update', 'partial_update']:
             permissions.append(IsCircleAdmin)
-        return [permission() for permission in permissions]
+        return [p() for p in permissions]
+
 
     def perform_create(self, serializer):
-        """Assign circle admin."""
+        """Assing circle admin"""
         circle = serializer.save()
         user = self.request.user
         profile = user.profile
@@ -48,5 +49,9 @@ class CircleViewSet(mixins.CreateModelMixin,
             profile=profile,
             circle=circle,
             is_admin=True,
-            remaining_invitations=10
+            remaining_invitation=10
         )
+
+
+    def destroy(self, request, pk=None):
+        raise MethodNotAllowed('DELETE')
