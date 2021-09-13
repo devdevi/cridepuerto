@@ -49,7 +49,7 @@ class CircleViewSet(mixins.CreateModelMixin,
             profile=profile,
             circle=circle,
             is_admin=True,
-            remaining_invitation=10
+            remaining_invitations=10
         )
 
 
