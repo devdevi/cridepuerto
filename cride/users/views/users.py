@@ -1,11 +1,13 @@
 """Users views."""
 
 # Django REST Framework
-from rest_framework import mixins, status, viewsets
-from rest_framework.decorators import action
+from cride.users.serializers.profile import ProfileModelSerializer
+from cride.circles import serializers
+from rest_framework import status
 from rest_framework.response import Response
-
-# Permissions
+from rest_framework.views import APIView
+from rest_framework import mixins, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated

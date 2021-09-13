@@ -69,3 +69,6 @@ Borrar la migracion
 
 # Como correr un shell de python
 docker-compose run --rm django python  manage.py shell_plus
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+https://www.techiediaries.com/resetting-django-migrations/
