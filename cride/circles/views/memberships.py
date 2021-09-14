@@ -48,14 +48,6 @@ class MembershipViewSet(mixins.ListModelMixin,
             permissions.append(IsSelfMember)
         return [p() for p in permissions]
 
-    # def get_object(self):
-    #     """Return the circle by using the user username"""
-    #     return get_object_or_404(
-    #         Membership,
-    #         user__username=self.kwargs['pk'],
-    #         circle = self.circle,
-    #         is_active=True
-    #     )
 
 
     def get_object(self):
