@@ -77,3 +77,24 @@ Usualmente se usa JSON
 
 # Autenticaron
 
+In [1]: Invitation.objects.all()
+Out[1]: <QuerySet []>
+
+In [2]: v = User.objects.first()
+
+In [3]: c = Circle.objects.first()
+
+In [4]: Invitation.objects.create(issued_by=v, circle=c)
+Out[4]: <Invitation: #curso-devi: 0SAV3KZC_1>
+
+
+
+In [15]: visaka = User.objects.get(username='visidevi')
+
+In [16]: a = User.objects.get(username='alfred')
+
+In [17]: Membership.objects.create(user=visaka, profile=visaka.profile, invite
+    ...: d_by=a, circle=c)
+Out[17]: <Membership: visidevi curso-devi>
+
+In [18]:
