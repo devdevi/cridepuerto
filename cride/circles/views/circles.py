@@ -42,6 +42,13 @@ class CircleViewSet(mixins.CreateModelMixin,
                 )
     filter_fields = ('verified', 'is_limited')
 
+    # Filters
+    filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
+    search_fields = ('slug_name', 'name')
+    ordering_fields = ('rides_offered', 'rides_taken', 'name', 'created', 'member_limit')
+    ordering = ('-members__count', '-rides_offered', '-rides_taken')
+    filter_fields = ('verified', 'is_limited')
+
     def get_queryset(self):
         """Restrict list to public.only"""
 
