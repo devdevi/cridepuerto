@@ -4,10 +4,7 @@
 from cride.users.serializers.profile import ProfileModelSerializer
 from django.conf import settings
 from django.contrib.auth import password_validation, authenticate
-from django.core.mail import EmailMultiAlternatives
 from django.core.validators import RegexValidator
-from django.template.loader import render_to_string
-from django.utils import timezone
 
 # Django REST Framework
 from rest_framework import serializers
@@ -17,12 +14,14 @@ from rest_framework.validators import UniqueValidator
 # Models
 from cride.users.models import User, Profile
 
+# Tasks
+from cride.taskapp.tasks import send_confirmation_email
+
 # Serializers
 from cride.users.serializers.profiles import ProfileModelSerializer
 
 # Utilities
 import jwt
-from datetime import timedelta
 
 
 class UserModelSerializer(serializers.ModelSerializer):
@@ -91,7 +90,7 @@ class UserSignUpSerializer(serializers.Serializer):
         data.pop('password_confirmation')
         user = User.objects.create_user(**data, is_verified=False, is_client=True)
         Profile.objects.create(user=user)
-        self.send_confirmation_email(user)
+        send_confirmation_email.delay(user_pk=user.pk)
         return user
 
     def send_confirmation_email(self, user):
