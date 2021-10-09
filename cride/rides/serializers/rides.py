@@ -200,3 +200,5 @@ class EndRideSerializer(serializers.ModelSerializer):
         if data <= ride.departure_date:
             raise serializers.ValidationError('Ride has not started yet')
         return data
+
+

@@ -5,6 +5,9 @@ from cride.users.serializers.profile import ProfileModelSerializer
 from django.conf import settings
 from django.contrib.auth import password_validation, authenticate
 from django.core.validators import RegexValidator
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.core.mail import EmailMultiAlternatives
 
 # Django REST Framework
 from rest_framework import serializers

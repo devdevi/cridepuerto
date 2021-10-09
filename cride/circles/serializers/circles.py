@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 # Model
 from cride.circles.models import Circle
-from rest_framework.exceptions import MethodNotAllowed
+
 
 class CircleModelSerializer(serializers.ModelSerializer):
     """Circle model serializer."""
@@ -28,11 +28,12 @@ class CircleModelSerializer(serializers.ModelSerializer):
             'verified', 'is_public',
             'is_limited', 'members_limit'
         )
-        read_only_fields =(
+        read_only_fields = (
             'is_public',
             'verified',
             'rides_offered'
         )
+
     def validate(self, data):
         """Ensure both members limit and is limited are present."""
         method = self.context['request'].method
@@ -43,7 +44,5 @@ class CircleModelSerializer(serializers.ModelSerializer):
 
             if bool(members_limit) ^ is_limited:
                 raise serializers.ValidationError('If there is members_limit or is_limited both need to exist.')
-
-
 
         return data

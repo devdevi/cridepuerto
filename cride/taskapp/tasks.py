@@ -15,7 +15,6 @@ from celery.decorators import task, periodic_task
 
 # Utilities
 import jwt
-import time
 from datetime import timedelta
 
 
@@ -28,7 +27,7 @@ def gen_verification_token(user):
         'type': 'email_confirmation'
     }
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
-    return token.decode()
+    return token
 
 
 @task(name='send_confirmation_email', max_retries=3)

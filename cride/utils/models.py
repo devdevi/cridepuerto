@@ -35,7 +35,6 @@ class CRideModel(models.Model):
         ordering = ['-created', '-modified']
 
 
-
 # class Student(CRideModel):
 #     name =  models.CharField()
 

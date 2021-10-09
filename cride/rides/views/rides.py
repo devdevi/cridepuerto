@@ -40,7 +40,6 @@ class RideViewSet(mixins.ListModelMixin,
 
     filter_backends = (SearchFilter, OrderingFilter)
     ordering = ('departure_date', 'arrival_date', 'available_seats')
-    ordering_fields = ('departure_date', 'arrival_date', 'available_seats')
     search_fields = ('departure_location', 'arrival_location')
 
     def dispatch(self, request, *args, **kwargs):

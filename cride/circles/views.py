@@ -1,7 +1,6 @@
 """ Circles views."""
 
-#Django
-from django.http  import JsonResponse
+# Django
 
 # Django rest framework
 from rest_framework.decorators import api_view
@@ -13,6 +12,7 @@ from cride.circles.models import Circle
 # Serializer
 from cride.circles.serializer import CircleSerializer, CreateCircleSerializer
 
+
 @api_view(['GET'])
 def list_circles(request):
     """ List circles."""
@@ -23,6 +23,7 @@ def list_circles(request):
     # return Response(data)
     serializer = CircleSerializer(circles, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def create_circle(request):
